@@ -73,7 +73,7 @@
 
 <section class="workspace">
   <div class="tabs"><button class="tab active" data-view="plan">2D 평면</button><button class="tab" data-view="iso">3D 모델</button></div>
-  <div class="canvasCard"><canvas id="planCanvas" width="900" height="760"></canvas><canvas id="isoCanvas" width="900" height="760" hidden></canvas></div>
+  <div class="canvasCard"><canvas id="planCanvas" width="900" height="760"></canvas><div id="threeView" hidden><div class="three-hint">드래그 회전 · 휠/핀치 확대 · 더블클릭 초기화</div></div></div>
   <div class="stats">
     <article><span>최소 통로</span><strong id="aisleStat">-</strong><small id="aisleNote">-</small></article>
     <article><span>유효 행거 길이</span><strong id="rodStat">-</strong><small>2단 포함</small></article>
@@ -132,5 +132,9 @@
 
 <footer>Maetan Dressing Room Planner · 모바일/제품추천 버전</footer>
 <script src="./app.js"></script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
+</script>
+<script type="module" src="./three-view.js"></script>
 </body>
 </html>
