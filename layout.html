@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f1ea">
+<title>직접 배치 테스트 · 매탄 드레스룸</title>
+<style>
+:root{font-family:Inter,"Pretendard","Noto Sans KR",system-ui,sans-serif;--bg:#f6f1ea;--card:#fffdf9;--paper:#fff7ee;--line:#e6d8c9;--ink:#2f261f;--muted:#76685d;--accent:#5d4332;--green:#2c7955;--red:#b14f3c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}a{color:inherit}.top{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;background:#fff8efee;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.top a{text-decoration:none;font-weight:800}.top span{font-size:12px;color:var(--muted)}main{max-width:1200px;margin:auto;padding:14px}.intro,.panel,.stage-card{background:var(--card);border:1px solid var(--line);border-radius:18px}.intro{padding:16px;margin-bottom:12px}.intro h1{margin:0 0 7px;font-size:25px}.intro p{margin:0;color:var(--muted);line-height:1.6}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:12px}.panel{padding:14px;align-self:start;position:sticky;top:64px}.panel h2{font-size:15px;margin:4px 0 10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:7px}.field{margin:8px 0}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%;height:38px;border:1px solid #d6c3b1;border-radius:10px;background:#fff;padding:0 9px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}.buttons button,.item button,.toolbar button{min-height:38px;border:1px solid #d6c3b1;border-radius:10px;background:#fff;color:var(--ink);cursor:pointer}.buttons .primary,.toolbar .primary{background:var(--accent);color:#fff;border-color:var(--accent)}.palette{display:grid;gap:7px}.item{padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}.item b,.item small{display:block}.item small{color:var(--muted);margin:2px 0 7px}.item .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.item a{font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:#fff}.stage-card{padding:12px}.toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.toolbar button{padding:0 12px}.status{margin-left:auto;font-size:12px;color:var(--muted)}.status.good{color:var(--green);font-weight:800}.status.bad{color:var(--red);font-weight:800}.room-wrap{display:flex;justify-content:center;overflow:hidden;background:linear-gradient(180deg,#fff,#faf6f1);border:1px solid var(--line);border-radius:16px;padding:14px;min-height:520px}.room{position:relative;width:min(100%,650px);background:#fff;border:5px solid #342b25;touch-action:none;user-select:none}.room svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.obj{position:absolute;border:1px solid #8f7a68;border-radius:6px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:800;line-height:1.2;cursor:grab;touch-action:none;box-shadow:0 3px 10px #5a3f2816}.obj span{pointer-events:none}.obj.selected{outline:3px solid #5d433288;outline-offset:2px}.obj.collision{border-color:var(--red);box-shadow:0 0 0 2px #b14f3c33}.hanger{background:#efe3d4}.air{background:#e1e8ee}.vanity{background:#f1ddd0}.mirror{background:#f5f5f5}.selected-box{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:12px}.selected-box strong{display:block;margin-bottom:6px}.selected-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.selected-grid label{font-size:10px;color:var(--muted)}.selected-grid input{width:100%;height:34px;border:1px solid #d6c3b1;border-radius:8px;padding:0 6px;background:#fff}.help{font-size:11px;color:var(--muted);line-height:1.55;margin-top:9px}@media(max-width:760px){main{padding:9px}.layout{display:block}.panel{position:relative;top:auto;margin-bottom:9px}.intro h1{font-size:21px}.room-wrap{min-height:430px;padding:8px}.toolbar .status{width:100%;margin-left:0}.selected-grid{grid-template-columns:1fr 1fr}.top span{display:none}} 
+</style>
+</head>
+<body>
+<header class="top"><a href="./index.html">← 기존 플래너</a><b>직접 배치 테스트</b><span>드래그 · 회전 · 치수 수정</span></header>
+<main>
+<section class="intro"><h1>가구를 직접 움직여서 배치해보세요</h1><p>실제 mm 치수를 기준으로 블록을 드래그합니다. 모바일에서는 손가락으로 이동할 수 있고, 선택 후 폭/깊이도 직접 바꿀 수 있습니다. 빨간 테두리는 가구끼리 겹치거나 방문 스윙 영역과 충돌한다는 뜻입니다.</p></section>
+<div class="layout">
+<aside class="panel">
+<h2>방 설정</h2>
+<div class="field"><label>프리셋</label><select id="preset"><option value="r3">매탄 방3 · 2330×2980</option><option value="r2">매탄 방2 · 2600×2980</option><option value="ref">참고 B안 · 2000×2620</option></select></div>
+<div class="row"><div class="field"><label>가로 mm</label><input id="roomW" type="number" value="2330" step="10"></div><div class="field"><label>세로 mm</label><input id="roomD" type="number" value="2980" step="10"></div></div>
+<div class="field"><label>방문 폭 mm</label><input id="doorW" type="number" value="800" step="10"></div>
+<div class="buttons"><button class="primary" id="presetB">B안 자동배치</button><button id="clearAll">전체 비우기</button></div>
+<h2>가구 추가</h2>
+<div class="palette">
+<div class="item"><b>시스템행거 800</b><small>800×500mm · 오늘의집 후보</small><button data-add="hanger" data-w="800" data-d="500">+ 추가</button><div class="links"><a target="_blank" rel="noopener" href="https://store.ohou.se/goods/3293565">오늘의집</a><a target="_blank" rel="noopener" href="https://search.shopping.naver.com/search/all?query=%ED%99%88%EB%8D%98%ED%8A%B8%ED%95%98%EC%9A%B0%EC%8A%A4%20%EC%8B%9C%EC%8A%A4%ED%85%9C%ED%96%89%EA%B1%B0%20800%20500%202100">네이버</a></div></div>
+<div class="item"><b>시스템행거 600</b><small>600×500mm · 틈새 조합용</small><button data-add="hanger" data-w="600" data-d="500">+ 추가</button></div>
+<div class="item"><b>에어드레서</b><small>632×445mm · DF60A8500 계열</small><button data-add="air" data-w="632" data-d="445">+ 추가</button><div class="links"><a target="_blank" rel="noopener" href="https://www.samsung.com/sec/airdresser/">삼성 공식</a><a target="_blank" rel="noopener" href="https://search.shopping.naver.com/search/all?query=DF60A8500WG">네이버</a></div></div>
+<div class="item"><b>화장대</b><small>400×800mm · 깊이 400 권장</small><button data-add="vanity" data-w="400" data-d="800">+ 추가</button><div class="links"><a target="_blank" rel="noopener" href="https://store.ohou.se/goods/2519050">오늘의집</a></div></div>
+<div class="item"><b>문걸이 전신거울</b><small>60×400mm · 방문 뒤 설치용</small><button data-add="mirror" data-w="60" data-d="400">+ 추가</button><div class="links"><a target="_blank" rel="noopener" href="https://store.ohou.se/goods/940535">오늘의집</a></div></div>
+</div>
+<p class="help">행거는 실제로는 벽면에 붙여 설치하는 것을 권장합니다. B안 자동배치는 후면 행거 + 좌측 행거 + 우측 에어드레서 + 우측 화장대를 기본으로 놓습니다.</p>
+</aside>
+<section class="stage-card">
+<div class="toolbar"><button class="primary" id="rotate">선택 회전</button><button id="delete">선택 삭제</button><button id="save">저장</button><span id="status" class="status">배치 준비</span></div>
+<div class="room-wrap"><div id="room" class="room"><svg id="overlay" aria-hidden="true"></svg></div></div>
+<div class="selected-box"><strong id="selTitle">선택된 가구 없음</strong><div class="selected-grid"><label>X mm<input id="selX" type="number" step="10" disabled></label><label>Y mm<input id="selY" type="number" step="10" disabled></label><label>폭 mm<input id="selW" type="number" step="10" disabled></label><label>깊이 mm<input id="selD" type="number" step="10" disabled></label></div></div>
+</section>
+</div>
+</main>
+<script>
+const $=q=>document.querySelector(q),room=$("#room"),overlay=$("#overlay");let items=[],selected=null,drag=null;
+const names={hanger:"시스템행거",air:"에어드레서",vanity:"화장대",mirror:"전신거울"};
+function roomState(){return {w:+$("#roomW").value,d:+$("#roomD").value,door:+$("#doorW").value}}
+function setRoom(w,d,door){$("#roomW").value=w;$("#roomD").value=d;$("#doorW").value=door;render()}
+function preset(v){if(v==="r3")setRoom(2330,2980,800);if(v==="r2")setRoom(2600,2980,800);if(v==="ref")setRoom(2000,2620,850)}
+$("#preset").onchange=e=>preset(e.target.value);["#roomW","#roomD","#doorW"].forEach(id=>$(id).oninput=render);
+function add(type,w,d,x=100,y=100){items.push({id:Date.now()+Math.random(),type,w:+w,d:+d,x:+x,y:+y});selected=items[items.length-1].id;render()}
+document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>add(b.dataset.add,b.dataset.w,b.dataset.d));
+function bLayout(){items=[];const r=roomState(),backW=Math.min(1350,Math.max(800,r.w-760));add("hanger",backW,500,50,50);add("hanger",500,Math.min(1480,r.d-1250),50,620);add("air",632,445,r.w-682,50);add("vanity",400,800,r.w-450,r.d-900);selected=null;render()}
+$("#presetB").onclick=bLayout;$("#clearAll").onclick=()=>{items=[];selected=null;render()};$("#rotate").onclick=()=>{const a=items.find(i=>i.id===selected);if(a){[a.w,a.d]=[a.d,a.w];clamp(a);render()}};$("#delete").onclick=()=>{items=items.filter(i=>i.id!==selected);selected=null;render()};$("#save").onclick=()=>{localStorage.setItem("maetanFreeLayout",JSON.stringify({room:roomState(),items}));$("#status").textContent="저장됨"};
+function clamp(a){const r=roomState();a.x=Math.max(0,Math.min(a.x,r.w-a.w));a.y=Math.max(0,Math.min(a.y,r.d-a.d))}
+function rectHit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.d&&a.y+a.d>b.y}
+function doorHit(a){const r=roomState(),door={x:0,y:r.d-r.door,w:r.door,d:r.door};return rectHit(a,door)}
+function collisions(){const bad=new Set();for(let i=0;i<items.length;i++){if(doorHit(items[i]))bad.add(items[i].id);for(let j=i+1;j<items.length;j++)if(rectHit(items[i],items[j])){bad.add(items[i].id);bad.add(items[j].id)}}return bad}
+function drawOverlay(){const r=roomState();overlay.setAttribute("viewBox","0 0 "+r.w+" "+r.d);overlay.innerHTML='<rect x="0" y="0" width="'+r.w+'" height="'+r.d+'" fill="none" stroke="#342b25" stroke-width="18"/><line x1="0" y1="'+r.d+'" x2="'+r.door+'" y2="'+r.d+'" stroke="#fff" stroke-width="25"/><path d="M 0 '+r.d+' L 0 '+(r.d-r.door)+' A '+r.door+' '+r.door+' 0 0 1 '+r.door+' '+r.d+'" fill="none" stroke="#8f8175" stroke-width="8" stroke-dasharray="22 18"/><text x="'+(r.w/2)+'" y="38" text-anchor="middle" font-size="42" fill="#8d7f73">가로 '+r.w+' mm</text>'}
+function render(){const r=roomState();room.style.aspectRatio=r.w+"/"+r.d;drawOverlay();room.querySelectorAll(".obj").forEach(n=>n.remove());const bad=collisions();items.forEach(a=>{clamp(a);const el=document.createElement("div");el.className="obj "+a.type+(selected===a.id?" selected":"")+(bad.has(a.id)?" collision":"");el.dataset.id=a.id;el.style.left=(a.x/r.w*100)+"%";el.style.top=(a.y/r.d*100)+"%";el.style.width=(a.w/r.w*100)+"%";el.style.height=(a.d/r.d*100)+"%";el.innerHTML="<span>"+names[a.type]+"<br>"+a.w+"×"+a.d+"</span>";el.onpointerdown=startDrag;el.onclick=()=>{selected=a.id;render()};room.appendChild(el)});const s=items.find(i=>i.id===selected);["#selX","#selY","#selW","#selD"].forEach(id=>$(id).disabled=!s);$("#selTitle").textContent=s?names[s.type]+" 선택":"선택된 가구 없음";if(s){$("#selX").value=Math.round(s.x);$("#selY").value=Math.round(s.y);$("#selW").value=s.w;$("#selD").value=s.d}const st=$("#status");if(bad.size){st.className="status bad";st.textContent="간섭 "+bad.size+"개"}else{st.className="status good";st.textContent="간섭 없음"}}
+function startDrag(e){e.preventDefault();const id=+e.currentTarget.dataset.id,a=items.find(i=>i.id===id);selected=id;const rect=room.getBoundingClientRect(),r=roomState();drag={id,startX:e.clientX,startY:e.clientY,x:a.x,y:a.y,sx:r.w/rect.width,sy:r.d/rect.height};e.currentTarget.setPointerCapture(e.pointerId);e.currentTarget.onpointermove=moveDrag;e.currentTarget.onpointerup=endDrag;render()}
+function moveDrag(e){if(!drag)return;const a=items.find(i=>i.id===drag.id);a.x=Math.round((drag.x+(e.clientX-drag.startX)*drag.sx)/10)*10;a.y=Math.round((drag.y+(e.clientY-drag.startY)*drag.sy)/10)*10;clamp(a);render()}
+function endDrag(e){drag=null;e.currentTarget.onpointermove=null;e.currentTarget.onpointerup=null;render()}
+[["#selX","x"],["#selY","y"],["#selW","w"],["#selD","d"]].forEach(([id,key])=>$(id).onchange=e=>{const a=items.find(i=>i.id===selected);if(a){a[key]=Math.max(key==="w"||key==="d"?50:0,+e.target.value);clamp(a);render()}});
+try{const saved=JSON.parse(localStorage.getItem("maetanFreeLayout"));if(saved){setRoom(saved.room.w,saved.room.d,saved.room.door);items=saved.items||[];render()}else bLayout()}catch(e){bLayout()}
+</script>
+</body>
+</html>
