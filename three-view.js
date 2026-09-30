@@ -40,6 +40,7 @@ function material(color, roughness=.72, metalness=.02) {
 
 const mats = {
   wall: material(palette.wall,.9,0),
+  sideWall: new THREE.MeshStandardMaterial({color:palette.wall,roughness:.9,metalness:0,transparent:true,opacity:.22,depthWrite:false,side:THREE.DoubleSide}),
   wallEdge: material(palette.wallEdge,.85,0),
   floor: material(palette.floor,.9,0),
   frame: material(palette.frame,.5,.35),
@@ -77,8 +78,8 @@ function addRoom(group,s) {
   const floor = addBox(group,w/2,-.025,d/2,w,.05,d,mats.floor);
   floor.receiveShadow = true;
 
-  addBox(group,-.025,h/2,d/2,.05,h,d,mats.wall);
-  addBox(group,w+.025,h/2,d/2,.05,h,d,mats.wall);
+  addBox(group,-.025,h/2,d/2,.035,h,d,mats.sideWall);
+  addBox(group,w+.025,h/2,d/2,.035,h,d,mats.sideWall);
   addBox(group,w/2,h/2,d+.025,w,h,.05,mats.wall);
 
   const rug = new THREE.Mesh(new THREE.CylinderGeometry(Math.min(w,d)*.22,Math.min(w,d)*.22,.012,48),mats.rug);
@@ -309,16 +310,32 @@ function clearModel() {
   modelGroup = null;
 }
 
-function resetCamera(snapshot=currentSnapshot) {
+function setCameraView(mode="home",snapshot=currentSnapshot) {
   if (!snapshot) return;
   const s = snapshot.state;
   const w=m(s.roomW),d=m(s.roomD),h=m(s.roomH);
   const radius = Math.max(w,d,h);
-  camera.position.set(w*1.65,h*1.18,-d*.58);
-  controls.target.set(w*.50,Math.min(1.0,h*.43),d*.53);
+  const target = new THREE.Vector3(w*.50,Math.min(1.0,h*.43),d*.53);
+  controls.target.copy(target);
   controls.minDistance = radius*.48;
   controls.maxDistance = radius*3.1;
+
+  if (mode === "top") {
+    camera.position.set(w*.50,h*2.15,d*.52);
+    camera.up.set(0,0,-1);
+  } else if (mode === "front") {
+    camera.position.set(w*.50,h*.82,-d*.95);
+    camera.up.set(0,1,0);
+  } else {
+    camera.position.set(w*1.38,h*1.18,-d*.72);
+    camera.up.set(0,1,0);
+  }
+  camera.lookAt(target);
   controls.update();
+}
+
+function resetCamera(snapshot=currentSnapshot) {
+  setCameraView("home",snapshot);
 }
 
 function rebuild(snapshot) {
@@ -399,6 +416,12 @@ function init() {
   resize();
 
   root.addEventListener("dblclick", () => resetCamera());
+  root.querySelectorAll("[data-3d-view]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      setCameraView(btn.dataset["3dView"] || "home");
+    });
+  });
 
   renderer.setAnimationLoop(() => {
     controls.update();
