@@ -2,70 +2,135 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f1ea">
 <title>매탄레이크파크 드레스룸 플래너</title>
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 <header class="topbar">
-  <div><strong>매탄레이크파크 · 작은방 드레스룸 플래너</strong><span class="sub">행거 중심 + 에어드레서</span></div>
-  <div class="badges"><span>82A/B 공개도면 기반</span><span class="warn">실측 전 가안</span></div>
+  <div class="brand">
+    <span class="badge">B안</span>
+    <div><strong>매탄레이크파크 · 작은방 드레스룸</strong><span>행거 + 에어드레서 + 화장대</span></div>
+  </div>
+  <div class="badges"><span>모바일 최적화</span><span>실측 전 가안</span></div>
 </header>
-<main class="layout">
-<aside class="panel controls">
-  <section><h2>1. 방 기준</h2>
-    <label>도면 프리셋<select id="roomPreset"><option value="r3">작은방 3 · 2330 × 2980</option><option value="r2">작은방 2 · 2600 × 2980</option><option value="custom">직접 입력</option></select></label>
-    <div class="grid3"><label>폭 mm<input id="roomW" type="number" min="1800" max="5000" step="10"></label><label>깊이 mm<input id="roomD" type="number" min="1800" max="5000" step="10"></label><label>높이 mm<input id="roomH" type="number" min="2000" max="3000" step="10"></label></div>
-    <div class="grid2"><label>문 폭 mm<input id="doorW" type="number" min="650" max="1100" step="10"></label><label>창/발코니 개구 mm<input id="windowW" type="number" min="800" max="2400" step="10"></label></div>
+
+<main class="page">
+<section class="hero card">
+  <div>
+    <p class="kicker">추천 방향</p>
+    <h1>ㄱ자 행거형 + 화장대 + 에어드레서</h1>
+    <p class="lead">업로드한 참고안처럼 <b>후면 행거 + 측면 2단 행거 + 우측 에어드레서 + 화장대</b>를 기본 추천안으로 잡았습니다. 제품 크기까지 연결해 배치 가능 여부를 바로 확인할 수 있습니다.</p>
+    <div class="hero-actions"><button class="primary" data-apply-layout="dresser">B안 적용</button><button class="secondary" data-scroll="products">제품 추천 보기</button></div>
+  </div>
+  <div class="hero-stats">
+    <article><span>최소 통로</span><strong id="heroAisle">-</strong></article>
+    <article><span>행거 길이</span><strong id="heroRod">-</strong></article>
+    <article><span>옷 수용</span><strong id="heroCap">-</strong></article>
+    <article><span>배치 상태</span><strong id="heroFit">-</strong></article>
+  </div>
+</section>
+
+<section class="layout">
+<aside class="panel controls card">
+  <div class="panel-head"><h2>치수 / 배치 설정</h2><button id="toggleControls" class="mini">접기</button></div>
+  <div id="controlBody">
+  <section>
+    <label>방 프리셋<select id="roomPreset">
+      <option value="r3">매탄 방3 · 2330 × 2980</option>
+      <option value="r2">매탄 방2 · 2600 × 2980</option>
+      <option value="ref">참고 B안 · 2000 × 2620</option>
+      <option value="custom">직접 입력</option>
+    </select></label>
+    <div class="grid3">
+      <label>가로 mm<input id="roomW" type="number" min="1800" max="5000" step="10"></label>
+      <label>세로 mm<input id="roomD" type="number" min="1800" max="5000" step="10"></label>
+      <label>높이 mm<input id="roomH" type="number" min="2000" max="3000" step="10"></label>
+    </div>
+    <div class="grid2"><label>문 폭 mm<input id="doorW" type="number" min="650" max="1100" step="10"></label><label>창/개구 mm<input id="windowW" type="number" min="500" max="2400" step="10"></label></div>
   </section>
-  <section><h2>2. 배치</h2>
-    <label>구성<select id="layoutPreset"><option value="max">행거 최대화</option><option value="balanced">균형형</option><option value="single">한쪽 벽 집중</option></select></label>
+  <section>
+    <label>배치안<select id="layoutPreset">
+      <option value="dresser">B안 · ㄱ자+화장대형</option>
+      <option value="max">행거 최대화</option>
+      <option value="balanced">균형형</option>
+      <option value="single">한쪽벽 집중형</option>
+    </select></label>
     <label>행거 깊이 <b id="depthOut"></b><input id="hangerDepth" type="range" min="480" max="650" step="10"></label>
     <label>롱 원피스/코트 구간 <b id="longOut"></b><input id="longLen" type="range" min="500" max="1300" step="50"></label>
-    <label>옷 1벌당 폭 가정 <b id="pitchOut"></b><input id="hangerPitch" type="range" min="35" max="65" step="5"></label>
-  </section>  <section><h2>3. 에어드레서</h2>
-    <label class="switchline"><input id="airOn" type="checkbox">에어드레서 사용</label>
+    <label>옷 1벌 폭 가정 <b id="pitchOut"></b><input id="hangerPitch" type="range" min="35" max="65" step="5"></label>
+  </section>
+  <section>
+    <label class="switchline"><input id="airOn" type="checkbox">에어드레서 포함</label>
     <div class="grid3"><label>폭<input id="airW" type="number" step="5"></label><label>깊이<input id="airD" type="number" step="5"></label><label>높이<input id="airH" type="number" step="5"></label></div>
-    <p class="hint">기본값 445 × 632 × 1850 mm. 오른쪽 벽 하단 배치, 문 열림 여유까지 검토합니다.</p>
+    <label class="switchline"><input id="vanityOn" type="checkbox">화장대 포함</label>
+    <div class="grid2"><label>화장대 폭<input id="vanityW" type="number" step="10"></label><label>화장대 깊이<input id="vanityD" type="number" step="10"></label></div>
   </section>
-  <section><h2>4. 보기/저장</h2>
-    <div class="actions"><button id="applyBtn" class="primary">추천 배치 적용</button><button id="resetBtn">초기화</button></div>
-    <p class="hint">값은 이 브라우저에 자동 저장됩니다.</p>
-  </section>
+  <section><div class="actions"><button id="applyBtn" class="primary">추천값 적용</button><button id="resetBtn">초기화</button></div><p class="hint">설정값은 브라우저에 자동 저장됩니다.</p></section>
+  </div>
 </aside>
+
 <section class="workspace">
   <div class="tabs"><button class="tab active" data-view="plan">2D 평면</button><button class="tab" data-view="iso">3D 모델</button></div>
-  <div class="canvasCard">
-    <canvas id="planCanvas" width="900" height="700"></canvas>
-    <canvas id="isoCanvas" width="900" height="700" hidden></canvas>
-  </div>
+  <div class="canvasCard"><canvas id="planCanvas" width="900" height="760"></canvas><canvas id="isoCanvas" width="900" height="760" hidden></canvas></div>
   <div class="stats">
-    <article><span>최소 중앙 통로</span><strong id="aisleStat">-</strong><small id="aisleNote">-</small></article>
-    <article><span>유효 행거 길이</span><strong id="rodStat">-</strong><small>2단 행거 포함</small></article>
+    <article><span>최소 통로</span><strong id="aisleStat">-</strong><small id="aisleNote">-</small></article>
+    <article><span>유효 행거 길이</span><strong id="rodStat">-</strong><small>2단 포함</small></article>
     <article><span>옷 수용 추정</span><strong id="capStat">-</strong><small id="capNote">-</small></article>
     <article><span>간섭 체크</span><strong id="checkStat">-</strong><small id="checkNote">-</small></article>
   </div>
 </section>
-<aside class="panel notes">
+
+<aside class="panel notes card">
   <section><h2>현재 배치</h2><div id="summary" class="summary"></div></section>
-  <section><h2>평면도 기준</h2><div class="summary"><b>공개 평면도 표기</b><br>방2 약 2600×2980 mm<br>방3 약 2330×2980 mm</div><p class="hint">저작권 원문 이미지는 사이트에 복제하지 않고 아래 KB부동산 원문 링크로 연결합니다.</p></section>
-  <section><h2>실측할 때 꼭 확인</h2>
-    <ul class="checklist">
-      <li>방 안쪽 벽-벽 실치수와 걸레받이 돌출</li>
-      <li>방문 힌지 방향·실제 문짝 폭·손잡이 돌출</li>
-      <li>창/발코니 문 폭, 커튼 박스와 열림 간섭</li>
-      <li>콘센트·스위치·인터폰·난방배관 위치</li>
-      <li>천장 유효고와 조명/감지기 위치</li>
-    </ul>
+  <section><h2>빠른 배치 제안</h2>
+    <div class="proposal" data-apply-layout="dresser"><b>B안 · ㄱ자+화장대</b><span>후면 행거 + 좌측 2단 + 우측 에어드레서/화장대</span></div>
+    <div class="proposal" data-apply-layout="max"><b>수납 극대화</b><span>양측 2단 행거, 화장대 제외</span></div>
+    <div class="proposal" data-apply-layout="single"><b>여유형</b><span>한쪽 행거 + 화장대, 넓은 동선</span></div>
   </section>
-  <section class="source"><h2>설계 기준</h2>
-    <p>행거는 기본 깊이 550 mm, 2단행거 + 롱의류 구간을 섞었습니다. 중앙 통로 900 mm 이상을 편한 목표로 보고, 에어드레서는 전면 문 열림 공간을 별도 표시합니다.</p>
-    <p class="hint">가구 제작 전에는 현장 실측값으로 반드시 덮어쓰세요.</p>
-    <p class="hint"><a href="https://kbland.kr/se/c/3697" target="_blank">KB부동산 공개 평면도</a> · <a href="https://www.samsung.com/sec/airdresser/" target="_blank">삼성 에어드레서 설치가이드</a></p>
-  </section>
+  <section><h2>실측 필수</h2><ul class="checklist"><li>벽-벽 치수·걸레받이</li><li>방문 힌지/손잡이</li><li>창/커튼박스</li><li>콘센트/스위치</li><li>천장·조명 위치</li></ul></section>
 </aside>
+</section>
+
+<section id="products" class="products card">
+  <div class="section-title"><div><p class="kicker">실구매 후보</p><h2>제품 추천 · 배치와 같이 보기</h2></div><p>가격·재고는 변동될 수 있어 구매 직전 판매 페이지에서 다시 확인하세요.</p></div>
+  <div class="product-grid">
+    <article class="product" data-kind="hanger">
+      <span class="tag best">행거 1순위</span><h3>홈던트하우스 시스템행거 800×500×2100</h3>
+      <p>깊이 500mm라 작은방 B안과 궁합이 좋습니다. 여러 모듈을 조합해 후면/측면 길이를 맞추는 방식.</p>
+      <dl><div><dt>크기</dt><dd>800×500×2100mm</dd></div><div><dt>확인 가격</dt><dd>109,400원</dd></div></dl>
+      <div class="buy-actions"><a href="https://store.ohou.se/goods/3293565" target="_blank" rel="noopener">오늘의집 제품</a><a href="https://search.shopping.naver.com/search/all?query=%ED%99%88%EB%8D%98%ED%8A%B8%ED%95%98%EC%9A%B0%EC%8A%A4%20%EC%8B%9C%EC%8A%A4%ED%85%9C%ED%96%89%EA%B1%B0%20800%20500%202100" target="_blank" rel="noopener">네이버 가격비교</a></div>
+    </article>
+    <article class="product" data-kind="vanity">
+      <span class="tag">화장대 추천</span><h3>바라다 원목 확장형 화장대</h3>
+      <p>깊이 400mm, 폭 800~1350mm로 좁은 드레스룸 우측 벽에 놓기 좋은 규격. 거울 포함.</p>
+      <dl><div><dt>크기</dt><dd>800~1350×400×750mm</dd></div><div><dt>확인 가격</dt><dd>128,000원</dd></div></dl>
+      <div class="buy-actions"><a href="https://store.ohou.se/goods/2519050" target="_blank" rel="noopener">오늘의집 제품</a><a href="https://search.shopping.naver.com/search/all?query=%EB%B0%94%EB%9D%BC%EB%8B%A4%20%EC%9B%90%EB%AA%A9%20%ED%99%95%EC%9E%A5%ED%98%95%20%ED%99%94%EC%9E%A5%EB%8C%80" target="_blank" rel="noopener">네이버 가격비교</a></div>
+    </article>
+    <article class="product" data-kind="mirror">
+      <span class="tag">전신거울 추천</span><h3>심플리 문걸이 전신거울 400×1500</h3>
+      <p>바닥 면적을 전혀 먹지 않아 드레스룸에 특히 유리합니다. 방문 뒤쪽에 설치하는 구성을 추천.</p>
+      <dl><div><dt>크기</dt><dd>400×1500mm</dd></div><div><dt>확인 가격</dt><dd>41,900원</dd></div></dl>
+      <div class="buy-actions"><a href="https://store.ohou.se/goods/940535" target="_blank" rel="noopener">오늘의집 제품</a><a href="https://search.shopping.naver.com/search/all?query=%EB%AC%B8%EA%B1%B8%EC%9D%B4%20%EC%A0%84%EC%8B%A0%EA%B1%B0%EC%9A%B8%20400%201500" target="_blank" rel="noopener">네이버 가격비교</a></div>
+    </article>
+    <article class="product" data-kind="air">
+      <span class="tag">에어드레서</span><h3>삼성 DF60A8500 계열</h3>
+      <p>445×632×1850mm 기준. B안에서는 우측 후면 배치가 가장 자연스럽고 전면 문 열림 공간을 별도 확보합니다.</p>
+      <dl><div><dt>크기</dt><dd>445×632×1850mm</dd></div><div><dt>문 열림</dt><dd>전면 약 1,023mm 고려</dd></div></dl>
+      <div class="buy-actions"><a href="https://www.samsung.com/sec/airdresser/" target="_blank" rel="noopener">삼성 공식</a><a href="https://search.shopping.naver.com/search/all?query=DF60A8500WG" target="_blank" rel="noopener">네이버 가격비교</a></div>
+    </article>
+  </div>
+  <div id="productAdvice" class="product-advice"></div>
+</section>
+
+<section class="guide card">
+  <div><h2>헹거 구매 기준</h2><p><b>깊이 500mm 전후 · 높이 2000~2200mm · 상부선반 포함 · 행거봉 하중 20kg 이상</b>을 우선 보세요. 가벼운 이동식 단독행거는 수납량이 많아지면 흔들림과 봉 처짐 때문에 추천하지 않습니다.</p></div>
+  <div class="keywords"><b>검색어</b><span>시스템행거 500 깊이 2단</span><span>드레스룸 행거 800 500 2100</span><span>상부선반 시스템행거</span></div>
+</section>
 </main>
-<footer>Maetan Dressing Room Planner · editable local web model</footer>
+
+<footer>Maetan Dressing Room Planner · 모바일/제품추천 버전</footer>
 <script src="./app.js"></script>
 </body>
 </html>
