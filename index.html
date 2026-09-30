@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>매탄레이크파크 드레스룸 플래너</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div><strong>매탄레이크파크 · 작은방 드레스룸 플래너</strong><span class="sub">행거 중심 + 에어드레서</span></div>
+  <div class="badges"><span>82A/B 공개도면 기반</span><span class="warn">실측 전 가안</span></div>
+</header>
+<main class="layout">
+<aside class="panel controls">
+  <section><h2>1. 방 기준</h2>
+    <label>도면 프리셋<select id="roomPreset"><option value="r3">작은방 3 · 2330 × 2980</option><option value="r2">작은방 2 · 2600 × 2980</option><option value="custom">직접 입력</option></select></label>
+    <div class="grid3"><label>폭 mm<input id="roomW" type="number" min="1800" max="5000" step="10"></label><label>깊이 mm<input id="roomD" type="number" min="1800" max="5000" step="10"></label><label>높이 mm<input id="roomH" type="number" min="2000" max="3000" step="10"></label></div>
+    <div class="grid2"><label>문 폭 mm<input id="doorW" type="number" min="650" max="1100" step="10"></label><label>창/발코니 개구 mm<input id="windowW" type="number" min="800" max="2400" step="10"></label></div>
+  </section>
+  <section><h2>2. 배치</h2>
+    <label>구성<select id="layoutPreset"><option value="max">행거 최대화</option><option value="balanced">균형형</option><option value="single">한쪽 벽 집중</option></select></label>
+    <label>행거 깊이 <b id="depthOut"></b><input id="hangerDepth" type="range" min="480" max="650" step="10"></label>
+    <label>롱 원피스/코트 구간 <b id="longOut"></b><input id="longLen" type="range" min="500" max="1300" step="50"></label>
+    <label>옷 1벌당 폭 가정 <b id="pitchOut"></b><input id="hangerPitch" type="range" min="35" max="65" step="5"></label>
+  </section>  <section><h2>3. 에어드레서</h2>
+    <label class="switchline"><input id="airOn" type="checkbox">에어드레서 사용</label>
+    <div class="grid3"><label>폭<input id="airW" type="number" step="5"></label><label>깊이<input id="airD" type="number" step="5"></label><label>높이<input id="airH" type="number" step="5"></label></div>
+    <p class="hint">기본값 445 × 632 × 1850 mm. 오른쪽 벽 하단 배치, 문 열림 여유까지 검토합니다.</p>
+  </section>
+  <section><h2>4. 보기/저장</h2>
+    <div class="actions"><button id="applyBtn" class="primary">추천 배치 적용</button><button id="resetBtn">초기화</button></div>
+    <p class="hint">값은 이 브라우저에 자동 저장됩니다.</p>
+  </section>
+</aside>
+<section class="workspace">
+  <div class="tabs"><button class="tab active" data-view="plan">2D 평면</button><button class="tab" data-view="iso">3D 모델</button></div>
+  <div class="canvasCard">
+    <canvas id="planCanvas" width="900" height="700"></canvas>
+    <canvas id="isoCanvas" width="900" height="700" hidden></canvas>
+  </div>
+  <div class="stats">
+    <article><span>최소 중앙 통로</span><strong id="aisleStat">-</strong><small id="aisleNote">-</small></article>
+    <article><span>유효 행거 길이</span><strong id="rodStat">-</strong><small>2단 행거 포함</small></article>
+    <article><span>옷 수용 추정</span><strong id="capStat">-</strong><small id="capNote">-</small></article>
+    <article><span>간섭 체크</span><strong id="checkStat">-</strong><small id="checkNote">-</small></article>
+  </div>
+</section>
+<aside class="panel notes">
+  <section><h2>현재 배치</h2><div id="summary" class="summary"></div></section>
+  <section><h2>평면도 기준</h2><div class="summary"><b>공개 평면도 표기</b><br>방2 약 2600×2980 mm<br>방3 약 2330×2980 mm</div><p class="hint">저작권 원문 이미지는 사이트에 복제하지 않고 아래 KB부동산 원문 링크로 연결합니다.</p></section>
+  <section><h2>실측할 때 꼭 확인</h2>
+    <ul class="checklist">
+      <li>방 안쪽 벽-벽 실치수와 걸레받이 돌출</li>
+      <li>방문 힌지 방향·실제 문짝 폭·손잡이 돌출</li>
+      <li>창/발코니 문 폭, 커튼 박스와 열림 간섭</li>
+      <li>콘센트·스위치·인터폰·난방배관 위치</li>
+      <li>천장 유효고와 조명/감지기 위치</li>
+    </ul>
+  </section>
+  <section class="source"><h2>설계 기준</h2>
+    <p>행거는 기본 깊이 550 mm, 2단행거 + 롱의류 구간을 섞었습니다. 중앙 통로 900 mm 이상을 편한 목표로 보고, 에어드레서는 전면 문 열림 공간을 별도 표시합니다.</p>
+    <p class="hint">가구 제작 전에는 현장 실측값으로 반드시 덮어쓰세요.</p>
+    <p class="hint"><a href="https://kbland.kr/se/c/3697" target="_blank">KB부동산 공개 평면도</a> · <a href="https://www.samsung.com/sec/airdresser/" target="_blank">삼성 에어드레서 설치가이드</a></p>
+  </section>
+</aside>
+</main>
+<footer>Maetan Dressing Room Planner · editable local web model</footer>
+<script src="./app.js"></script>
+</body>
+</html>
