@@ -73,7 +73,7 @@
 
 <section class="workspace">
   <div class="tabs"><button class="tab active" data-view="plan">2D 평면</button><button class="tab" data-view="iso">3D 모델</button></div>
-  <div class="canvasCard"><canvas id="planCanvas" width="900" height="760"></canvas><div id="threeView" hidden><div class="three-hint">드래그 회전 · 휠/핀치 확대 · 더블클릭 초기화</div></div></div>
+  <div class="canvasCard"><canvas id="planCanvas" width="900" height="760"></canvas><div id="threeView" hidden><div class="three-toolbar"><button data-3d-view="home">사선</button><button data-3d-view="top">탑뷰</button><button data-3d-view="front">정면</button></div><div class="three-hint">드래그 회전 · 휠/핀치 확대 · 더블클릭 초기화</div></div></div>
   <div class="stats">
     <article><span>최소 통로</span><strong id="aisleStat">-</strong><small id="aisleNote">-</small></article>
     <article><span>유효 행거 길이</span><strong id="rodStat">-</strong><small>2단 포함</small></article>
