@@ -209,17 +209,17 @@ function addHangerModule(group,mod,role,s) {
       const shortCenter = z0+.06+shortLen/2;
 
       addRodZ(group,rodX,longCenter,longLen,1.72);
-      addGarmentsZ(group,rodX+(isLeft?.15:-.15),longCenter,longLen,1.70,1.15,.30);
+      addGarmentsZ(group,rodX+(isLeft ? .15 : -.15),longCenter,longLen,1.70,1.15,.30);
 
       addRodZ(group,rodX,shortCenter,shortLen,1.72);
-      addGarmentsZ(group,rodX+(isLeft?.15:-.15),shortCenter,shortLen,1.70,.60,.30);
+      addGarmentsZ(group,rodX+(isLeft ? .15 : -.15),shortCenter,shortLen,1.70,.60,.30);
       addRodZ(group,rodX,shortCenter,shortLen,.95);
-      addGarmentsZ(group,rodX+(isLeft?.15:-.15),shortCenter,shortLen,.93,.52,.30);
+      addGarmentsZ(group,rodX+(isLeft ? .15 : -.15),shortCenter,shortLen,.93,.52,.30);
     } else {
       addRodZ(group,rodX,cz,total,1.72);
-      addGarmentsZ(group,rodX+(isLeft?.15:-.15),cz,total,1.70,.60,.30);
+      addGarmentsZ(group,rodX+(isLeft ? .15 : -.15),cz,total,1.70,.60,.30);
       addRodZ(group,rodX,cz,total,.95);
-      addGarmentsZ(group,rodX+(isLeft?.15:-.15),cz,total,.93,.52,.30);
+      addGarmentsZ(group,rodX+(isLeft ? .15 : -.15),cz,total,.93,.52,.30);
     }
   }
 
